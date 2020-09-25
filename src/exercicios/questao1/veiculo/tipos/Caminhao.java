@@ -10,6 +10,7 @@ public class Caminhao extends Veiculo implements Terrestre, InteriorImpermeavel 
     public void andarNaChuva() {}
     public Caminhao()
     {
+        super(nome);
         geraPeso(920,1000);
         geraVelocidade(90,110);
         passageiros = 3;

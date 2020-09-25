@@ -13,6 +13,7 @@ public class TanqueAnfibio extends Veiculo implements Anfibio, Offroad, Interior
     public void andarNaChuva() {}
     public TanqueAnfibio()
     {
+        super(nome);
         geraPeso(300,350);
         geraVelocidade(80,100);
         passageiros = 2;

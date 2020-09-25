@@ -12,6 +12,7 @@ public class Jipe extends Veiculo implements Terrestre, Offroad, InteriorImperme
     public void andarNaChuva() {}
     public Jipe()
     {
+        super(nome);
         geraPeso(140,160);
         geraVelocidade(170,190);
         passageiros = 4;

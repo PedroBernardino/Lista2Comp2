@@ -10,6 +10,7 @@ public class Lancha extends Veiculo implements Aquatico, InteriorImpermeavel {
     public void andarNaChuva() {}
     public Lancha()
     {
+        super(nome);
         geraPeso(200,230);
         geraVelocidade(140,160);
         passageiros = 4;

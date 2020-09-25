@@ -61,7 +61,7 @@ public class Verificador {
 
         for (Veiculo veiculo:lista) {
             if(veiculo.verifica(distancia,terreno,numpassageiros,carga,tempo,clima)) {
-                System.out.printf("%s : vel.máxima = %f km/h, carga max. = %f kg, max. passageiros = %d",veiculo.getNome(), veiculo.getVelocidadeMax(), veiculo.getPesoMax(), veiculo.getPassageiros());
+                System.out.printf("%s : vel.máxima = %f km/h, carga max. = %f kg, max. passageiros = %d\n",veiculo.getNome(), veiculo.getVelocidadeMax(), veiculo.getPesoMax(), veiculo.getPassageiros());
             }
         }
     }

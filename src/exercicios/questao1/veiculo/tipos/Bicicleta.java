@@ -10,9 +10,11 @@ public class Bicicleta extends Veiculo implements Terrestre, Offroad {
     public void andarForaDaEstrada() { }
     public Bicicleta()
     {
+        super(nome);
         geraPeso(10,30);
         geraVelocidade(50,60);
         passageiros = 1;
+
     }
     
 }

@@ -8,6 +8,7 @@ public class Canoa extends Veiculo implements Aquatico {
     public void andarNaAgua() {}
     public Canoa()
     {
+        super(nome);
         geraPeso(100,120);
         geraVelocidade(40,60);
         passageiros = 2;

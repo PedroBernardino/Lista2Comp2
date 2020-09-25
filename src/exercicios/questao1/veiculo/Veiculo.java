@@ -7,10 +7,17 @@ import exercicios.questao1.veiculo.interfaces.Offroad;
 import exercicios.questao1.veiculo.interfaces.Terrestre;
 
 public abstract class Veiculo {
-    protected static String nome;
+    protected String nome;
     protected double velocidadeMax;
     protected double pesoMax;
-    protected static int passageiros;
+    protected int passageiros = 0;
+
+    public Veiculo() {}
+
+    protected Veiculo(String nome)
+    {
+        this.nome = nome;
+    }
 
     public double getVelocidadeMax()
     {
@@ -22,11 +29,11 @@ public abstract class Veiculo {
         return this.pesoMax;
     }
 
-    public static int getPassageiros() {
+    public int getPassageiros() {
         return passageiros;
     }
 
-    public static String getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -40,33 +47,27 @@ public abstract class Veiculo {
     public boolean verifica(double distancia, String tipoCaminho, int numPessoas, double pesoCarga, double tempoLimite, String clima)
     {
         if (this.calculaTempoViagem(distancia) > tempoLimite) {
-            System.out.println("Falhou no tempo");
             return false;
         }
         if (tipoCaminho.equals("rodovia") && !(this instanceof Terrestre)) {
-            System.out.println("Falhou no terreno");
             return false;
         }
         if(tipoCaminho.equals("estrada de terra") && !(this instanceof Offroad)) {
-            System.out.println("Falhou no terreno");
             return false;
         }
         if((tipoCaminho.equals("rio") || tipoCaminho.equals("lago") || tipoCaminho.equals("mar")) && !(this instanceof Aquatico)) {
-            System.out.println("Falhou no terreno");
             return false;
         }
         if (numPessoas > this.passageiros) {
-            System.out.println("Falhou no num de passageiros");
             return false;
         }
         if(pesoCarga > this.pesoMax) {
-            System.out.println("Falhou no peso");
             return false;
         }
         if(clima.equals("chuva") && !(this instanceof InteriorImpermeavel)) {
-            System.out.println("Falhou no clima");
             return false;
         }
+
         return true;
     }
 

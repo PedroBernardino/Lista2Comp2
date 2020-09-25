@@ -8,6 +8,7 @@ public class Moto extends Veiculo implements Terrestre {
     public void andarNaEstrada() { }
     public Moto()
     {
+        super(nome);
         geraPeso(50,70);
         geraVelocidade(130,150);
         passageiros = 2;

@@ -13,6 +13,7 @@ public class Carro extends Veiculo implements Terrestre, InteriorImpermeavel {
 
     public Carro()
     {
+        super(nome);
         geraPeso(180,200);
         geraVelocidade(220,250);
         passageiros = 5;
