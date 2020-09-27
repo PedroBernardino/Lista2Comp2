@@ -8,4 +8,9 @@ public class Randomizer {
         Random random = new Random();
         return minimo + (maximo - minimo) * random.nextDouble();
     }
+    public static int randomInt(int minimo, int maximo)
+    {
+        Random random = new Random();
+        return random.nextInt((maximo - minimo) + 1) + minimo;
+    }
 }
