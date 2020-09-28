@@ -8,16 +8,6 @@ public class Skill {
     private final double multiplicadorAtaque;
     private final int custoMana, chanceAplicarStatus, duracaoStatus;
 
-    public Skill(String nome, String desc, double mult, int custo)
-    {
-        this.nome = nome;
-        this.descricao = desc;
-        this.multiplicadorAtaque = mult;
-        this.custoMana = custo;
-        this.statusAplicado = null;
-        this.chanceAplicarStatus = 0;
-        this.duracaoStatus = 0;
-    }
 
     public Skill(String nome, String desc, double mult, int custo, String status, int statusChance, int turnosStatus)
     {
@@ -30,15 +20,26 @@ public class Skill {
         this.duracaoStatus = turnosStatus;
     }
 
-    public Skill(String nome, String desc, double mult, int custo, String status, int statusChance)
+    public Skill(String nome, String desc, int custo, String status, int turnosStatus)
+    {
+        this.nome = nome;
+        this.descricao = desc;
+        this.multiplicadorAtaque = 0;
+        this.custoMana = custo;
+        this.statusAplicado = status;
+        this.chanceAplicarStatus = 100;
+        this.duracaoStatus = turnosStatus;
+    }
+
+    public Skill(String nome, String desc, double mult, int custo, String status, int turnosStatus)
     {
         this.nome = nome;
         this.descricao = desc;
         this.multiplicadorAtaque = mult;
         this.custoMana = custo;
         this.statusAplicado = status;
-        this.chanceAplicarStatus = statusChance;
-        this.duracaoStatus = 1;
+        this.chanceAplicarStatus = 100;
+        this.duracaoStatus = turnosStatus;
     }
 
     public String getNome() {

@@ -3,7 +3,7 @@ package exercicios.questao2.entidades.itens.equipamentos;
 import exercicios.questao2.entidades.itens.Equipamento;
 
 public class Armadura extends Equipamento {
-    private int vidaExtra;
+    private final int vidaExtra;
 
     public Armadura()
     {

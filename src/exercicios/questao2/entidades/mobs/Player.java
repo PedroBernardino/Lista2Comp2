@@ -9,16 +9,17 @@ import exercicios.questao2.entidades.itens.Pocao;
 import exercicios.questao2.eventos.Batalha;
 import exercicios.questao2.eventos.EncontraItem;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Player extends Mob {
-    private final List<Skill> skills = new ArrayList<>();
+    private final List<Skill> skills;
     private int pocoes;
 
-    public Player() {
+    public Player(List <Skill> skills) {
         super();
+        this.skills = skills;
         this.ataque = Randomizer.randomInt(15, 20);
         this.vida = 100 - ataque;
         this.mana = 50;
@@ -52,15 +53,18 @@ public class Player extends Mob {
                 } else {
                     Entidade alvo = tabuleiro[linha - 1][coluna];
                     if (alvo instanceof Parede)
-                        return -1;
+                        return 0;
                     else if (alvo instanceof Item) {
                         EncontraItem.pegarItem(this, (Item) alvo);
                         this.mover(linha - 1, coluna);
                         return 1;
                     } else {
-                        if (Batalha.lutar(this, (Monstro) alvo) == 1) {
+                        int resultadoBatalha = Batalha.lutar(this, (Monstro) alvo);
+                        if (resultadoBatalha == 1) {
                             this.mover(linha - 1, coluna);
                         }
+                        else if (resultadoBatalha == -1)
+                            return -2;
                         return 1;
                     }
                 }
@@ -73,15 +77,19 @@ public class Player extends Mob {
                 } else {
                     Entidade alvo = tabuleiro[linha][coluna - 1];
                     if (alvo instanceof Parede)
-                        return -1;
+                        return 0;
                     else if (alvo instanceof Item) {
                         EncontraItem.pegarItem(this, (Item) alvo);
                         this.mover(linha, coluna - 1);
                         return 1;
-                    } else {
-                        if (Batalha.lutar(this, (Monstro) alvo) == 1) {
+                    }
+                    else {
+                        int resultadoBatalha = Batalha.lutar(this, (Monstro) alvo);
+                        if (resultadoBatalha == 1) {
                             this.mover(linha, coluna - 1);
                         }
+                        else if(resultadoBatalha == -1)
+                            return resultadoBatalha;
                         return 1;
                     }
                 }
@@ -90,18 +98,22 @@ public class Player extends Mob {
                 if (!(checaCasaOcupada(this.linha, this.coluna + 1))) {
                     this.mover(linha, coluna + 1);
                     return 1;
-                } else {
+                }
+                else {
                     Entidade alvo = tabuleiro[linha][coluna + 1];
                     if (alvo instanceof Parede)
-                        return -1;
+                        return 0;
                     else if (alvo instanceof Item) {
                         EncontraItem.pegarItem(this, (Item) alvo);
                         this.mover(linha, coluna + 1);
                         return 1;
                     } else {
-                        if (Batalha.lutar(this, (Monstro) alvo) == 1) {
+                        int resultadoBatalha = Batalha.lutar(this, (Monstro) alvo);
+                        if (resultadoBatalha == 1) {
                             this.mover(linha, coluna + 1);
                         }
+                        else if(resultadoBatalha == -1)
+                            return resultadoBatalha;
                         return 1;
                     }
                 }
@@ -109,11 +121,10 @@ public class Player extends Mob {
             case "baixo" -> {
                 if (!(checaCasaOcupada(this.linha + 1, this.coluna))) {
                     this.mover(linha + 1, coluna);
-                    return 1;
                 } else {
                     Entidade alvo = tabuleiro[linha + 1][coluna];
                     if (alvo instanceof Parede)
-                        return -1;
+                        return 0;
 
                     if (alvo instanceof Item) {
                         EncontraItem.pegarItem(this, (Item) alvo);
@@ -121,10 +132,13 @@ public class Player extends Mob {
                         return 1;
 
                     }
-                    if (Batalha.lutar(this, (Monstro) alvo) == 1)
+                    int resultadoBatalha = Batalha.lutar(this, (Monstro) alvo);
+                    if (resultadoBatalha == 1)
                         this.mover(linha + 1, coluna);
-                    return 1;
+                    else if (resultadoBatalha == -1)
+                        return resultadoBatalha;
                 }
+                return 1;
             }
         }
         return 0;
@@ -133,7 +147,7 @@ public class Player extends Mob {
     public int fugir(Monstro inimigo)
     {
         int chanceFuga = Randomizer.randomInt(1,100);
-        if(chanceFuga <= 70 || inimigo.getStatus().equals("Atordoado"))
+        if(chanceFuga <= 70 || Objects.equals(inimigo.getStatus(), "Atordoado"))
         {
             return 1;
         }

@@ -2,18 +2,24 @@ package exercicios.questao2;
 
 import exercicios.auxiliar.Randomizer;
 import exercicios.questao2.entidades.Parede;
+import exercicios.questao2.entidades.mobs.Monstro;
 import exercicios.questao2.entidades.mobs.Player;
 
 public abstract class Entidade {
-    private static final int MAXLINHA = 12, MAXCOLUNA = 12;
-    protected static Entidade[][] tabuleiro = new Entidade[MAXLINHA][MAXCOLUNA];
+    public static final int MAXLINHA = 12, MAXCOLUNA = 12;
+    protected static Entidade[][] tabuleiro;
 
     protected int linha, coluna;
 
 
     protected Entidade()
     {
-        this.Spawn();
+        this.spawn();
+    }
+
+    protected Entidade(int linha, int coluna)
+    {
+        this.forceSpawn(linha,coluna);
     }
 
     public int getLinha() {
@@ -24,7 +30,7 @@ public abstract class Entidade {
         return coluna;
     }
 
-    protected void Spawn()
+    protected void spawn()
     {
         do {
             this.linha = Randomizer.randomInt(1, 10);
@@ -33,6 +39,12 @@ public abstract class Entidade {
         tabuleiro[linha][coluna] = this;
     }
 
+    protected void forceSpawn(int linha, int coluna)
+    {
+        this.linha = linha;
+        this.coluna = coluna;
+        tabuleiro[linha][coluna] = this;
+    }
     public static void printaTabuleiro()
     {
         System.out.println("-------------------------------------------------");
@@ -43,19 +55,24 @@ public abstract class Entidade {
             System.out.print("                   ");
             for (int j = 0; j< MAXCOLUNA;j++)
             {
-                System.out.print(" ");
+                System.out.print("   ");
                 if(tabuleiro[i][j] instanceof Parede)
-                    System.out.print("X");
+                    System.out.print("#");
                 else if(tabuleiro[i][j] instanceof Player)
-                    System.out.print("P");
-                else if(tabuleiro[i][j] == null)
+                    System.out.print("Y");
+                //Para ver a localização dos itens e monstros do mapa, descomente esta parte do código.
+//                else if(tabuleiro[i][j] instanceof Item)
+//                    System.out.print("I");
+//                else if(tabuleiro[i][j] instanceof Monstro)
+//                    System.out.print("M");
+                else
                     System.out.print("_");
-                else System.out.print("?");
             }
-            System.out.println();
             System.out.println();
         }
         System.out.println();
+        System.out.println("Monstros restantes: "+ Monstro.numerodeMonstros);
+        System.out.println("Y- Você     #-Parede");
         System.out.println("-------------------------------------------------");
         System.out.println();
     }

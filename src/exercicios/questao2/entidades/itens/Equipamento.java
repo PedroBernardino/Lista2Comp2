@@ -32,9 +32,6 @@ public class Equipamento extends Item {
         }
     }
 
-    public int getStatusExtra() {
-        return statusExtra;
-    }
 
     public String getRaridade() {
         return raridade;

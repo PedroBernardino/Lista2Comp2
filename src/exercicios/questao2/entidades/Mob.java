@@ -4,8 +4,6 @@ import exercicios.auxiliar.Randomizer;
 import exercicios.questao2.Entidade;
 import exercicios.questao2.entidades.mobs.Skill;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Mob extends Entidade implements SerVivo {
 
@@ -44,7 +42,7 @@ public abstract class Mob extends Entidade implements SerVivo {
         this.coluna = col;
     }
 
-    public int atacar(Mob inimigo) {
+    public void atacar(Mob inimigo) {
         int dano = this.ataque;
         int chanceCritico = Randomizer.randomInt(1, 100);
         if (chanceCritico <= 10) {
@@ -53,20 +51,23 @@ public abstract class Mob extends Entidade implements SerVivo {
         }
         inimigo.vida -= dano;
         System.out.printf("%s ataca %s causando %d de dano.\n",this.nome,inimigo.nome, dano);
-        return dano;
     }
 
 
     public int usarSkill(Skill skill, Mob inimigo) {
-        int dano = (int) (ataque * skill.getMultiplicadorAtaque());
         if (skill.getCustoMana() > mana)
             return -1;
+        int dano = (int) (ataque * skill.getMultiplicadorAtaque());
         inimigo.vida -= dano;
         System.out.printf("%s utilizou %s, causando %d de dano a %s.\n",this.nome, skill.getNome(), dano, inimigo.nome);
         mana -= skill.getCustoMana();
-        if (skill.getStatusAplicado().equals("Roubo de vida"))
+        if(skill.getStatusAplicado().equals("Roubo de vida"))
             this.curar(dano);
-        if (skill.getStatusAplicado() != null)
+        else if(skill.getStatusAplicado().equals("Abençoado"))
+            skill.aplicaStatus(this);
+        else if(skill.getStatusAplicado().equals("Fúria"))
+            this.ataque *= 2;
+        else if (skill.getStatusAplicado() != null)
             skill.aplicaStatus(inimigo);
         return dano;
     }
@@ -83,22 +84,26 @@ public abstract class Mob extends Entidade implements SerVivo {
             mana = manaMax;
     }
 
-    public int recebeStatus(String status, int turnosDuracao) {
+    public void recebeStatus(String status, int turnosDuracao) {
         if (this.status == null) {
-            System.out.println("Causou" + status);
+            System.out.println("Causou " + status);
             this.status = status;
             turnoRestanteStatus = turnosDuracao;
-            return 1;
+            return;
         }
         System.out.println("Não surtiu efeito...");
-        return -1;
     }
 
     public void passaTurno() {
         if (this.status != null) {
             if(status.equals("Sangramento")) {
-                this.vida -= 15;
-                System.out.println(this.nome + " perde 15 de vida devido ao sangramento.");
+                this.vida -= 10;
+                System.out.println(this.nome + " perde 10 de vida devido ao sangramento.");
+            }
+            else if(status.equals("Abençoado"))
+            {
+                this.vida += 15;
+                System.out.println(this.nome + " recupera 15 de vida devido a benção divina.");
             }
 
             turnoRestanteStatus--;

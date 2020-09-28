@@ -9,7 +9,7 @@ public class Boss extends Monstro {
         super(skill);
         this.nome = "Boss";
         this.ataque = Randomizer.randomInt(2, 3);
-        this.vida = 150 - ataque;
+        this.vida = 180 - ataque;
         this.mana = 50;
         vidaMax = vida;
         manaMax = mana;

@@ -10,7 +10,7 @@ public class MorcegoVampiro extends Monstro {
         super(skill);
         this.nome = "Morcego Vampiro";
         this.ataque = Randomizer.randomInt(15, 20);
-        this.vida = 50 - ataque;
+        this.vida = 75 - ataque;
         this.mana = 50;
         vidaMax = vida;
         manaMax = mana;

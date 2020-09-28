@@ -9,7 +9,7 @@ public class Lobisomem extends Monstro {
         super(skill);
         this.nome = "Lobisomem";
         this.ataque = Randomizer.randomInt(10, 15);
-        this.vida = 70 - ataque;
+        this.vida = 90 - ataque;
         this.mana = 50;
         vidaMax = vida;
         manaMax = mana;

@@ -12,6 +12,7 @@ public class EncontraItem {
     {
         if (itemAchado instanceof Pocao)
         {
+            System.out.println("Você encontrou uma Poção!");
             heroi.addPocao();
         }
         else if(itemAchado instanceof Espada)

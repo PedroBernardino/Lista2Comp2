@@ -9,7 +9,7 @@ public class UrsoCiborgue extends Monstro {
         super(skill);
         this.nome = "Urso Ciborgue";
         this.ataque = Randomizer.randomInt(7, 12);
-        this.vida = 110 - ataque;
+        this.vida = 120 - ataque;
         this.mana = 50;
         vidaMax = vida;
         manaMax = mana;
