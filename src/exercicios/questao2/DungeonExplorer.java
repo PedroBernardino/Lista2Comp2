@@ -16,6 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Classe principal do jogo Dungeon Explorer.
+ * <p>
+ * Classe responsável pela execução do programa do jogo Dungeon Explorer, responsavel pela interação principal com o
+ * usuário.
+ * </p>
+ * @author      Pedro Bernardino - pedrohbshbs@gmail.com
+ * @version     1.3
+ * @since       0.5
+ */
 public class DungeonExplorer {
     public static void main(String[] args) {
         
@@ -46,7 +55,7 @@ public class DungeonExplorer {
                 "e aplicam Sangramento por 3 turnos", 0.9, 20, "Sangramento", 3);
 
         Skill beastSwipe = new Skill ("Golpe Feral", "Acerta o inimigo com suas patas com uma imensa força, causando" +
-                "80% do dano e podendo atordoar o adversário", 0.8, 30, "Atordoado", 40,1);
+                "80% do dano e podendo atordoar o adversário", 0.8, 30, "Atordoado", 40,2);
         Skill unstopabbleFury = new Skill("Fúria Imparável", "Libera toda sua raiva em um golpe que torna usuário" +
                 "mais forte cada vez que utilizado", 0.7, 5, "Fúria", 1);
 
@@ -184,6 +193,18 @@ public class DungeonExplorer {
         }while(!fimDeJogo);
 
     }
+
+    /**
+     * Método que confirma a escolha do usuário.
+     * <p>
+     * Esse método recebe um scanner como entrada, e o utiliza para ler do método de entrada se o usuário confirma a
+     * sua última ação escolhida, retornando se a opção dele foi correta e alertando caso tenha escolhido uma opção
+     * inválida.
+     *
+     * @param scanner o Scanner pelo qual a entrada será lida.
+     *
+     * @return true se o usuário digitou y ou Y, confirmando sua escolha, false em qualquer outro caso.
+     */
     public static boolean confirm(Scanner scanner)
     {
         String acao = scanner.nextLine();
@@ -197,6 +218,17 @@ public class DungeonExplorer {
         
     }
 
+    /**
+     * Método que checa se o jogo é possível de ser zerado.
+     * <p>
+     * O objetivo do jogo é derrotar todos os monstros. Para garantir que essa tarefa seja possível, esse método checa
+     * se o jogador consegue alcançar todos os monstros do tabuleiro
+     *
+     * @param player o jogador
+     * @param listaMonstros todos os monstros do mapa.
+     *
+     * @return true se o jogador consegue chegar até a posição de todos os monstros, senão false.
+     */
     public static boolean ehVencivel(Player player, List<Monstro> listaMonstros)
     {
         for (Monstro monstro:
@@ -208,6 +240,16 @@ public class DungeonExplorer {
         return true;
     }
 
+    /**
+     * Método que checa se o jogador é capaz de chegar até um monstro.
+     * <p>
+     * Dados um monstro e o jogador, o método checa se o jogador é capaz de alcançar esse monstro.
+     *
+     * @param player o jogador
+     * @param monstro um dos monstros do mapa.
+     *
+     * @return true se o jogador consegue chegar até a posição do monstro, senão false.
+     */
     public static boolean caminhoLivre(Player player,Monstro monstro)
     {
         int[][] mapa = new int[Entidade.MAXLINHA][Entidade.MAXCOLUNA];
@@ -216,6 +258,19 @@ public class DungeonExplorer {
         return  checaCasasVizinhas(linhaInicial,colunaInicial, mapa, monstro);
     }
 
+    /**
+     * Método recursivo que checa se é possível alcançar um monstro dada a posição inicial.
+     * <p>
+     * Dado um monstro,um valor pra linha e coluna o método checa se é possível chegar até esse monstro partindo
+     * desta posição inicial linha e coluna.
+     *
+     * @param linha a linha da posição inicial.
+     * @param coluna a coluna da posição inicial.
+     * @param mapa o mapa das casas que já foram checadas.
+     * @param monstro um dos monstros do mapa.
+     *
+     * @return true se alcançou o monstro, false se bateu numa parede em todas as tentativas de chegar até o monstro.
+     */
     public static boolean checaCasasVizinhas(int linha, int coluna, int[][] mapa, Monstro monstro)
     {
         mapa[linha][coluna] = 1;

@@ -8,6 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Classe principal do programa, que lista os veículos capazes de cumprir determinada viagem.
+ * <p>
+ * Classe responsável pela execução do programa Veículos, que verifica, dado uma lista de veículos
+ * e o trajeto desejado , quais destes são capazes de realizar a viagem considerando o tempo limite, o tipo de
+ * terreno, o clima , a quantidade de carga e o número de passageiros para a viagem.
+ * </p>
+ * @author      Pedro Bernardino - pedrohbshbs@gmail.com
+ * @version     1.3
+ * @since       0.5
+ */
 public class Verificador {
 
     public static void main(String[] args) {
@@ -18,7 +28,7 @@ public class Verificador {
         String[] requisito;
         Scanner scanner = new Scanner(System.in);
 
-
+        // recebendo os dados de entrada do usuário
         System.out.println("Digite a Lista de requisitos: distancia, terreno, numero de passageiros, peso da carga, tempo limite e clima");
         do
         {
@@ -37,7 +47,7 @@ public class Verificador {
         clima = requisito[5].trim();
         List <Veiculo> lista = new ArrayList<>();
 
-
+        //criando instâncias dos veículos específicos
         for(int i = 0; i< 3; i ++)
         {
             Carro carro = new Carro();
@@ -59,9 +69,10 @@ public class Verificador {
             lista.add(tanque);
         }
 
+        //mostrando ao usuário os veículos que são capazes de realizar a viagem.
         for (Veiculo veiculo:lista) {
             if(veiculo.verifica(distancia,terreno,numpassageiros,carga,tempo,clima)) {
-                System.out.printf("%s : vel.máxima = %f km/h, carga max. = %f kg, max. passageiros = %d\n",veiculo.getNome(), veiculo.getVelocidadeMax(), veiculo.getPesoMax(), veiculo.getPassageiros());
+                System.out.printf("%s : vel.máxima = %f km/h, carga max. = %f kg, max. passageiros = %d\n",veiculo.getNomeTipo(), veiculo.getVelocidadeMax(), veiculo.getPesoMax(), veiculo.getPassageiros());
             }
         }
     }

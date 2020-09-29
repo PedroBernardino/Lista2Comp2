@@ -9,8 +9,32 @@ import exercicios.questao2.entidades.mobs.Player;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Batalha {
 
+/** Classe abstrata Batalha, que representa uma Batalha entre o jogador e um monstro.
+ * <p>
+ * Classe figurativa que envolve a abstratificação de uma Batalha, simulando uma batalha de turnos entre o herói e um
+ * dos monstros do mapa após um encontro entre ambos.
+ * </p>
+ * @author      Pedro Bernardino - pedrohbshbs@gmail.com
+ * @version     1.2
+ * @since       1.0
+ */
+public abstract class Batalha {
+
+    /**
+     * Simula a luta entre um jogador e um monstro.
+     * <p>
+     * Esse método é acionado quando um jogador entra numa casa com um monstro, e implementa uma série de turnos
+     * de ações do player e do monstro até que a batalha chegue a um dos 3 possíveis resultados.
+     * O método retorna 1 caso o player mate o monstro, 0 caso o player fuja da batalha e -1 caso o player acabe morto
+     * no combate.
+     * </p>
+     *
+     * @param player o jogador que participará da batalha.
+     * @param monster o monstro que participará da batalha
+     *
+     * @return 1 caso o monstro morra, 0 caso o player fuja e -1 caso o player morra
+     */
     public static int lutar(Player player, Monstro monster)
     {
         System.out.println("Você encontrou um monstro! A batalha se inicia");
@@ -113,6 +137,16 @@ public class Batalha {
         }
     }
 
+    /**
+     * Mostra pro usuário o status atual do seu jogador e do monstro que está batalhando
+     * <p>
+     * Esse método é chamado a cada começo de turno, mostrando ao usuário a situação atual da batalha (vida, mana, ataque
+     * e status dos combatentes) para que o jogador decida sua próxima ação
+     * </p>
+     *
+     * @param player o jogador que está na batalha
+     * @param monster o monstro que está na batalha
+     */
     private static void printarStatus(Player player, Monstro monster)
     {
         System.out.println("----------------------------------------------");
@@ -132,6 +166,21 @@ public class Batalha {
         System.out.println("Z-atacar  X-Usar Skill  C-Poção  V-Fugir");
     }
 
+    /**
+     * Checa se um dos combatentes morreu
+     * <p>
+     * Esse método é chamado toda vez em que um dos combatentes possa ter recebido dano (após as ações de ambos e no fim
+     * do turno). Printa na tela caso um dos combatentes morra.
+     * Retorna 1 caso o jogador tenha vencido o monstro, e chama o método que dropa um loot ao player.
+     * Retorna 0 caso ninguém tenha morrido até o momento.
+     * Retorna -1 caso o player tenha morrido.
+     * </p>
+     *
+     * @param player o jogador que está na batalha
+     * @param monster o monstro que está na batalha
+     *
+     * @return 1 caso o monstro morra, 0 caso ninguem tenha morrido e -1 caso o jogador morra.
+     */
     private static int checaMorte(Player player, Monstro monster)
     {
         //se o jogador morreu
@@ -151,6 +200,16 @@ public class Batalha {
         }
         else return 0;
     }
+
+    /**
+     * Tem 10% de chance de dropar uma poção ao usuário.
+     * <p>
+     * Esse método é ativado após um monstro morrer em uma batalha. Gera um número aleatório, com 10% de chance de dar
+     * ao player uma poção a mais após o fim da batalha.
+     * </p>
+     *
+     * @param player o jogador que derrotou o monstro e poderá receber a poção.
+     */
     private static void droparLootMonstro(Player player)
     {
         int lootChance = Randomizer.randomInt(1,100);

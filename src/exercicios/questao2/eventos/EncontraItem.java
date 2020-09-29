@@ -6,8 +6,28 @@ import exercicios.questao2.entidades.itens.equipamentos.Armadura;
 import exercicios.questao2.entidades.itens.equipamentos.Espada;
 import exercicios.questao2.entidades.mobs.Player;
 
-public class EncontraItem {
+/** Classe abstrata EncontraItem, que representa um evento em que um jogador encontra um item.
+ * <p>
+ * Classe figurativa que envolve a abstratificação de um jogador encontrando um item pelo mapa, seja ele espada, armadura
+ * ou uma poção.
+ * </p>
+ * @author      Pedro Bernardino - pedrohbshbs@gmail.com
+ * @version     1.2
+ * @since       1.0
+ */
+public abstract class EncontraItem {
 
+    /**
+     * Dá o item encontrado ao jogador.
+     * <p>
+     * Esse método é acionado quando um jogador entra numa casa com um item. Caso o item seja um equipamento, o jogador
+     * o equipa imediatamente, e caso seja uma poção, adiciona ao seu estoque de poções.
+     * </p>
+     *
+     * @param heroi o jogador que encontrou o item
+     * @param itemAchado o item encontrado pelo jogador
+     *
+     */
     public static void pegarItem(Player heroi, Item itemAchado)
     {
         if (itemAchado instanceof Pocao)
